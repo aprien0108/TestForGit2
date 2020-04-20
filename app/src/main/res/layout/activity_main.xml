@@ -18,6 +18,7 @@
             android:layout_height="200sp"
             android:layout_gravity="center"
             android:layout_marginTop="150sp"
+
             android:src="@android:drawable/star_on" />
 
         <Button
