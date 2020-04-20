@@ -18,14 +18,13 @@
             android:layout_height="200sp"
             android:layout_gravity="center"
             android:layout_marginTop="150sp"
-
             android:src="@android:drawable/star_on" />
 
         <Button
             android:id="@+id/main_btn_gamestart"
             android:layout_width="200sp"
             android:layout_height="70sp"
-            android:text="게임 시작"
+            android:text="게임 할래"
             android:layout_gravity="center"
             android:layout_marginTop="20sp"
             android:textSize="30sp"/>
@@ -34,7 +33,7 @@
             android:id="@+id/main_btn_setting"
             android:layout_width="200sp"
             android:layout_height="70sp"
-            android:text="설정"
+            android:text="설정 바꿀래"
             android:layout_gravity="center"
             android:layout_marginTop="20sp"
             android:textSize="30sp"/>
@@ -43,7 +42,7 @@
             android:id="@+id/main_btn_rank"
             android:layout_width="200sp"
             android:layout_height="70sp"
-            android:text="랭킹"
+            android:text="랭킹 볼래"
             android:layout_gravity="center"
             android:layout_marginTop="20sp"
             android:textSize="30sp"/>
