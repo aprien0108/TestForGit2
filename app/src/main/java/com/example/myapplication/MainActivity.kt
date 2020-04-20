@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         println("하이");
         println("좀 이상하넹");
-        println("그냥 커밋은 뭐지? 왜 커밋엔 푸시만 된다는거지???");
+
 
     }
 }
