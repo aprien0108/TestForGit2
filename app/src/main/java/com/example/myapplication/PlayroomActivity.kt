@@ -1,4 +1,12 @@
 package com.example.myapplication
 
-class PlayroomActivity {
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+
+class PlayroomActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_playroom)
+
+    }
 }
