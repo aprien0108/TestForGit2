@@ -51,79 +51,88 @@
 
 
         </LinearLayout>
-
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="83"
-            >
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TableRow
+            </LinearLayout>
+
+            <TableLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:weightSum="10">
-                <ImageView
+                android:layout_height="match_parent"
+                android:layout_weight="83">
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="20dp"
-                    android:layout_width="20dp"
-                    android:id="@+id/map_19_0"
-                    android:src="@android:color/background_light"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="20dp"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/map_19_1"
-                    android:src="@android:color/background_light"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/map_19_2"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/map_19_3"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/map_19_4"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/map_19_5"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/map_19_6"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1" />
-                <ImageView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1" />
-            </TableRow>
+                    android:weightSum="10">
+                    <ImageView
+                        android:layout_height="20dp"
+                        android:layout_width="20dp"
+                        android:id="@+id/map_19_0"
+                        android:src="@android:color/background_light"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="20dp"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/map_19_1"
+                        android:src="@android:color/background_light"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/map_19_2"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/map_19_3"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/map_19_4"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/map_19_5"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/map_19_6"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1" />
+                    <ImageView
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1" />
+                </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="20sp" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp" />
+            </TableLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="20sp" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="20sp" />
-        </TableLayout>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
