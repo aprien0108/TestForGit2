@@ -15,7 +15,7 @@
         <ImageView
             android:id="@+id/main_img"
             android:layout_width="200sp"
-            android:layout_height="200sp"
+            android:layout_height="140sp"
             android:layout_gravity="center"
             android:layout_marginTop="150sp"
             android:src="@android:drawable/star_on" />
