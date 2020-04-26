@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class PlayroomActivity : AppCompatActivity() {
@@ -30,7 +31,10 @@ class PlayroomActivity : AppCompatActivity() {
         //맵 객체를 생성하고, 맵 객체는 생성시 각 좌표에 대한 블럭들을, 빈 상태로 만듦
         //맵 객체에는, 한줄이 완성되었거나 동일색상이 여러개 중첩되었는지를 판단하여 부수는 메소드가 존재해야함.
         val map = Map(20, 10)
-
+        var mapimgview = ImageView(this)
+        mapimgview.layoutParams.height = 32
+        mapimgview.layoutParams.width = 32
+//        mapimgview.id =
     }
 
     fun drawmap(map:Map) {

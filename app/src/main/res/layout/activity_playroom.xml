@@ -59,67 +59,28 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+            <!--요기에 이제 특수조작 키 그런거 둘거임-->
 
             </LinearLayout>
 
             <TableLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="83">
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="wrap_content"
                     android:weightSum="10">
+            <!--이미지뷰는 요정도 느낌으로 할거여
                     <ImageView
-                        android:layout_height="20dp"
-                        android:layout_width="20dp"
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
                         android:id="@+id/map_19_0"
-                        android:src="@android:color/background_light"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="20dp"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/map_19_1"
-                        android:src="@android:color/background_light"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/map_19_2"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/map_19_3"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/map_19_4"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/map_19_5"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/map_19_6"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1" />
-                    <ImageView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1" />
+                        android:src="@android:color/background_light" />
+                    -->
+
+
                 </TableRow>
 
                 <TableRow
