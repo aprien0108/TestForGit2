@@ -62,7 +62,12 @@
             <!--요기에 이제 특수조작 키 그런거 둘거임-->
 
             </LinearLayout>
-
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/pr_map"
+            />
+<!--
             <TableLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -70,29 +75,290 @@
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="10">
-            <!--이미지뷰는 요정도 느낌으로 할거여
+                    android:layout_height="wrap_content">
                     <ImageView
                         android:layout_height="32dp"
                         android:layout_width="32dp"
                         android:id="@+id/map_19_0"
                         android:src="@android:color/background_light" />
-                    -->
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_1"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_2"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_3"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_4"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_5"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_6"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_7"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_8"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_19_9"
+                        android:src="@android:color/background_light" />
+
 
 
                 </TableRow>
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="20sp" />
+                    android:layout_height="wrap_content" >
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_0"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_1"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_2"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_3"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_4"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_5"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_6"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_7"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_8"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_18_9"
+                        android:src="@android:color/background_light" />
+
+
+                </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="20sp" />
+                    android:layout_height="wrap_content" >
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_0"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_1"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_2"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_3"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_4"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_5"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_6"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_7"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_8"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_17_9"
+                        android:src="@android:color/background_light" />
+
+
+                </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="20sp" />
-            </TableLayout>
+                    android:layout_height="wrap_content" >
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_0"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_1"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_2"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_3"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_4"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_5"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_6"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_7"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_8"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_16_9"
+                        android:src="@android:color/background_light" />
+
+
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_0"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_1"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_2"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_3"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_4"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_5"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_6"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_7"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_8"
+                        android:src="@android:color/background_light" />
+                    <ImageView
+                        android:layout_height="32dp"
+                        android:layout_width="32dp"
+                        android:id="@+id/map_15_9"
+                        android:src="@android:color/background_light" />
+
+
+
+                </TableRow>
+            </TableLayout>-->
+
 
         </LinearLayout>
     </LinearLayout>
