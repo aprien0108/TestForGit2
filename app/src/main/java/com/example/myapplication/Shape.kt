@@ -47,3 +47,30 @@ class Rectangle(val map :Map) : Shape() {
         return map.map[0][4].isfilled or map.map[0][5].isfilled or map.map[1][4].isfilled or map.map[1][5].isfilled
     }
 }
+
+class Stick(val map :Map) : Shape() {
+
+
+    override fun isEnd(map: Map): Boolean {
+        TODO("Not yet implemented")
+    }
+
+}
+
+class Lshape(val map:Map) : Shape() {
+    override fun isEnd(map: Map): Boolean {
+        TODO("Not yet implemented")
+    }
+}
+
+class Zshape(val map:Map) : Shape() {
+    override fun isEnd(map: Map): Boolean {
+        TODO("Not yet implemented")
+    }
+}
+
+class Tshape(val map:Map) : Shape() {
+    override fun isEnd(map: Map): Boolean {
+        TODO("Not yet implemented")
+    }
+}
