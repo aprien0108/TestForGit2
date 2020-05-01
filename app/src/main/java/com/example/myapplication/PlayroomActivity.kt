@@ -7,6 +7,7 @@ import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RoundRectShape
+import android.media.Image
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
@@ -20,10 +21,18 @@ class PlayroomActivity : AppCompatActivity() {
         //여기서 특정 조건마다 발동되는, drawmap 메소드가 필요행.
         //drawmap(map) 요거는, map에서 각 좌표에 해당하는 모든 block들을 가져와서 layout의 view와 매칭시켜주는 함수야.
 //        gameStart()
-        drawBlock(0,0)
-        drawBlock(1,1)
-        drawBlock(2,2)
+        val map = Map(20,10)
+        val primg = findViewById<ImageView>(R.id.pr_map)
+        val bitmap: Bitmap = Bitmap.createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
+        val canvas: Canvas = Canvas(bitmap)
 
+        fillBlock(map,2,9,"red")
+        fillBlock(map,2,1,"red")
+        fillBlock(map,19,2,"red")
+        fillBlock(map,2,3,"red")
+        fillBlock(map,2,4,"red")
+        fillBlock(map,2,5,"red")
+        drawMap(map,primg,bitmap,canvas)
     }
 
 
@@ -47,36 +56,45 @@ class PlayroomActivity : AppCompatActivity() {
 //        mapimgview.id =
     }
 
-    fun drawmap(map:Map) {
-
+    fun fillBlock(map:Map, row:Int, column:Int, color : String) {
+        //맵에 특정 블록에 대한 값을 추가함.
+        map.map[row][column].isfilled = true
+        map.map[row][column].color = color
     }
 
-    fun drawBlock(row:Int, column:Int) {//블럭 하나를 해당 좌표에 그리는 것.
-        val primg = findViewById<ImageView>(R.id.pr_map)
-        val bitmap: Bitmap = Bitmap.createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
-        val canvas: Canvas = Canvas(bitmap)
+    fun drawMap(map:Map, primg:ImageView, bitmap: Bitmap, canvas:Canvas) {//맵 객체를 불러와 전부 그린다!
         var shapeDrawable: ShapeDrawable
-        val left = 0 + column * 50
-        val top = 0 + row * 38
-        val right = 50 + column * 50
-        val bottom = 38 + row * 38
         val outr = floatArrayOf(12f,12f,12f,12f,12f,12f,12f,12f)//느낌알았다 근데 이걸 글로어케쓰지
         //          2   3
         //      1           4
         //      8           6
         //          7   5
         //의 순서임. 각각 해당 부분의 원의 반지름을 정하는 것.
-        //
-        //
         val inset = RectF(6F, 6F, 6F, 6F)//이게 테두리의 두께임.
         val innerr = floatArrayOf(12f,12f,12f,12f,12f,12f,12f,12f)
-        shapeDrawable = ShapeDrawable(RoundRectShape(outr,inset,innerr))
-        shapeDrawable.setBounds( left, top, right, bottom)
-        shapeDrawable.getPaint().setColor(Color.parseColor("#009944"))
-        shapeDrawable.draw(canvas)
-        primg.background = BitmapDrawable(getResources(), bitmap)
+        val toast = Toast.makeText(applicationContext, "${map.map.size},${map.map[1].size}", Toast.LENGTH_SHORT)
+        toast.show()
 
+        for(row in 0 until map.map.size) {
 
+            for (column in 0 until map.map[row].size) {
+                if (map.map[row][column].isfilled) {
+//                    val toast = Toast.makeText(applicationContext, "$row,$column", Toast.LENGTH_SHORT)
+//                    toast.show()
+                    val left = 0 + column * 50
+                    val top = 0 + row * 38
+                    val right = 50 + column * 50
+                    val bottom = 38 + row * 38
+
+                    shapeDrawable = ShapeDrawable(RoundRectShape(outr, inset, innerr))
+                    shapeDrawable.setBounds(left, top, right, bottom)
+                    shapeDrawable.paint.color = Color.parseColor("#009944")
+                    shapeDrawable.draw(canvas)
+                }
+            }
+        }
+
+        primg.background = BitmapDrawable(resources, bitmap)
     }
 
 }
