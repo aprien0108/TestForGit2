@@ -5,14 +5,18 @@ import java.util.*
 abstract class Shape {
     //모든 도형은 색상, 좌표값, 회전중심의 좌표값을 갖는다.
     var color = "none"
-    var coordinate = arrayOf(arrayOf(0,0,0,0),arrayOf(0,0,0,0),arrayOf(0,0,0,0),arrayOf(0,0,0,0))
+    var coordinate = arrayOf(arrayOf(0,0),arrayOf(0,0),arrayOf(0,0),arrayOf(0,0))
     var centerRow:Int = 0
     var centerColumn:Int = 0
     abstract fun isEnd(map:Map) : Boolean
+    abstract fun turn(isRight : Boolean)
     fun fillBlock(map:Map, row:Int, column:Int, color : String) {
         //맵에 특정 블록에 대한 값을 추가함.
         map.map[row][column].isfilled = true
         map.map[row][column].color = color
+    }
+    fun move(isToRight : Boolean) {
+
     }
 }
 
@@ -36,6 +40,8 @@ class Rectangle(val map :Map) : Shape() {
             fillBlock(map,0,5,color)
             fillBlock(map,1,4,color)
             fillBlock(map,1,5,color)
+            coordinate = arrayOf(arrayOf(0,4),arrayOf(0,5),arrayOf(1,4),arrayOf(1,5))
+
         } else {
             //게임 끝!
         }
@@ -46,6 +52,10 @@ class Rectangle(val map :Map) : Shape() {
         //(0,4)(0,5) 14 15중 하나라도 블록이 있으면 겜끝
         return map.map[0][4].isfilled or map.map[0][5].isfilled or map.map[1][4].isfilled or map.map[1][5].isfilled
     }
+
+    override fun turn(isRight: Boolean) {
+        TODO("Not yet implemented")
+    }
 }
 
 class Stick(val map :Map) : Shape() {
@@ -54,11 +64,16 @@ class Stick(val map :Map) : Shape() {
     override fun isEnd(map: Map): Boolean {
         TODO("Not yet implemented")
     }
-
+    override fun turn(isRight: Boolean) {
+        TODO("Not yet implemented")
+    }
 }
 
 class Lshape(val map:Map) : Shape() {
     override fun isEnd(map: Map): Boolean {
+        TODO("Not yet implemented")
+    }
+    override fun turn(isRight: Boolean) {
         TODO("Not yet implemented")
     }
 }
@@ -67,10 +82,16 @@ class Zshape(val map:Map) : Shape() {
     override fun isEnd(map: Map): Boolean {
         TODO("Not yet implemented")
     }
+    override fun turn(isRight: Boolean) {
+        TODO("Not yet implemented")
+    }
 }
 
 class Tshape(val map:Map) : Shape() {
     override fun isEnd(map: Map): Boolean {
+        TODO("Not yet implemented")
+    }
+    override fun turn(isRight: Boolean) {
         TODO("Not yet implemented")
     }
 }
