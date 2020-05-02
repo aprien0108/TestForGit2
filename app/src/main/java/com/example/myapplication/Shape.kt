@@ -72,7 +72,53 @@ open class Shape(val map :Map) {
             }
         } else {
             //왼쪽으로 옮기는 경우
+            //좌측으로 이동
+            //1. 해당 shape 안에 최좌측 블럭을 구한다.
+            //우선 첫번째 블럭좌표를 최좌측으로 설정, 그다음좌표부터 볼 때 우선 row값이 같은지 확인하고,
+            //다르면 그게 최좌측, 같으면 비교해서 최좌측을 수정
 
+            //지금이 이미 최좌측인, column값이 0인 경우 바로 리턴해버림.
+            for (i in 0..3) {
+                if (coordinate[i][1] == 0) return
+            }
+            println("좌표값 : "+coordinate[0])
+            fronts.add(coordinate[0])
+            for (i in 1..3) {
+                var b = -1
+                for (j in 0 until fronts.size) {
+                    if( coordinate[i][0] == fronts[j][0]){
+                        b = j
+                    }
+                }
+                //여기서, b값은 동일한 row값을 가진 최전선 기록이 있는지여부를 확인하여 있다면 그 요소의 fronts 내의 index값을 가지고,
+                //없으면 -1을 가진다.
+                if (b > -1) {
+                    //겹친다면
+                    if (coordinate[i][1] < fronts[b][1]) {
+                        //지금 넣을까 말까 고민하는 coordinate[i]의 column값이 기존최좌방보다 어 좌측이라면, 바꿔치기 해줍니다.
+                        fronts[b] = coordinate[i]
+                    }
+                }
+            }
+
+
+            //2. 구한 최좌측블럭기준 한칸 왼쪽에 블럭이 있는지 확인한다.
+            var c = true
+
+            for ( i in 0 until fronts.size) {
+                if (map.map[fronts[i][0]][fronts[i][1]-1].isfilled) {
+                    c = false
+                }
+            }
+            //여기서 c값은 단 하나라도 최좌측 한칸왼쪽에 블럭이 있을 경우 false가 됨.
+
+            //3. 옮기거나 옮기지않는다.
+            if (c) {
+                //c값이 true일때만 옮긴다.
+                for (i in 0..3) {
+                    coordinate[i][1] = coordinate[i][1]-1
+                }
+            }
         }
     }
 }
