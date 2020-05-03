@@ -15,7 +15,15 @@ open class Shape(val map :Map) {
         //방향전환이 가능한지 보려면, 우선 중심을 기준으로 전환했을때의 좌표를 계산해보고, 그 값이 map 좌표안에 위치할 수 있는지 확인
         //그리고 그 위치에 isfilled값이 false라면 회전.
         //우측이거나 좌측으로 돌릴 수 있겠습니다.
+        val center = coordinate[coordinate.indexOf(arrayOf(centerRow,centerColumn))]
+        println("기준 : $center")
 
+        //오른쪽 방향 회전의 경우, 다른 블럭들은 서로 기준에 대하여 자신의 row와 column을 비교하여 각 경우에 맞게 이동함.
+        for (item in coordinate) {
+            if (item[0].equals(center[0]) and item[1].equals(center[1])) {
+
+            }
+        }
     }
     fun fillBlock(map:Map, row:Int, column:Int, color : String) {
         //맵에 특정 블록에 대한 값을 추가함.
@@ -32,7 +40,7 @@ open class Shape(val map :Map) {
 
             //지금이 이미 최우측인, column값이 9인 경우 바로 리턴해버림.
             for (i in 0..3) {
-                if (coordinate[i][1] == 9) return
+                if (coordinate[i][1].equals(9)) return
             }
 
             println("좌표값 : "+coordinate[0])
@@ -40,7 +48,7 @@ open class Shape(val map :Map) {
             for (i in 1..3) {
                 var b = -1
                 for (j in 0 until fronts.size) {
-                    if( coordinate[i][0] == fronts[j][0]){
+                    if( coordinate[i][0].equals(fronts[j][0])){
                         b = j
                     }
                 }
@@ -84,14 +92,14 @@ open class Shape(val map :Map) {
 
             //지금이 이미 최좌측인, column값이 0인 경우 바로 리턴해버림.
             for (i in 0..3) {
-                if (coordinate[i][1] == 0) return
+                if (coordinate[i][1].equals(0)) return
             }
             println("좌표값 : "+coordinate[0])
             fronts.add(coordinate[0])
             for (i in 1..3) {
                 var b = -1
                 for (j in 0 until fronts.size) {
-                    if( coordinate[i][0] == fronts[j][0]){
+                    if( coordinate[i][0].equals(fronts[j][0])){
                         b = j
                     }
                 }

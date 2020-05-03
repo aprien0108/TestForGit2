@@ -12,7 +12,7 @@ class Map(rowsize: Int,columnsize:Int ) {
             for (j in 1..columnsize) {
                 // 한 행을 만든다. 맨 윗줄부터
 
-                if(rowsize == columnsize) {
+                if(rowsize.equals(columnsize)) {
                     block = Block(true, "none")
                 } else {
                     block = Block(false, "none")
