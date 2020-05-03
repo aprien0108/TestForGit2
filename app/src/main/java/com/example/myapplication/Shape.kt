@@ -17,13 +17,29 @@ open class Shape(val map :Map) {
         //우측이거나 좌측으로 돌릴 수 있겠습니다.
         val center = coordinate[coordinate.indexOf(arrayOf(centerRow,centerColumn))]
         println("기준 : $center")
-
+        var changecoordinate = arrayOf(arrayOf(0,0),arrayOf(0,0),arrayOf(0,0),arrayOf(0,0))
         //오른쪽 방향 회전의 경우, 다른 블럭들은 서로 기준에 대하여 자신의 row와 column을 비교하여 각 경우에 맞게 이동함.
-        for (item in coordinate) {
-            if (item[0].equals(center[0]) and item[1].equals(center[1])) {
-
+        for (i in 0..3) {
+            //수학적으로 밑에 식 두개면 회전이 끝남. 와 이거만든다고 진짜 힘들었다 머리 깨지는줄 ㅋㅋㅋㅋ
+            if (isRight) {
+                changecoordinate[i] = arrayOf(
+                    center[0] - (center[1] - coordinate[i][1]),
+                    center[1] - (coordinate[i][0] - center[0])
+                )
+            } else {
+                changecoordinate[i] = arrayOf(
+                    center[0] + (center[1] - coordinate[i][1]),
+                    center[1] + (coordinate[i][0] - center[0])
+                )
             }
         }
+        //회전된 도형의 좌표를 계산완료하였으니, 맵에서 해당 칸이 filled 되어있는지 확인 후, 안되어있을때만 회전가능.
+        //또한 changecoordinate안에 row가 20이상 혹은 column이 10이상인경우 회전불가임.
+        for (item in changecoordinate) {
+            if ((item[0] > 19) or (item[1] > 9)) return
+            if (map.map[item[0]][item[1]].isfilled) return
+        }
+        coordinatesChange(changecoordinate)
     }
     fun fillBlock(map:Map, row:Int, column:Int, color : String) {
         //맵에 특정 블록에 대한 값을 추가함.
@@ -81,7 +97,7 @@ open class Shape(val map :Map) {
                 for (i in 0..3) {
                     changecoordinate[i][1] = coordinate[i][1]+1
                 }
-                coordinateChange(changecoordinate)
+                coordinatesChange(changecoordinate)
             }
         } else {
             //왼쪽으로 옮기는 경우
@@ -132,12 +148,12 @@ open class Shape(val map :Map) {
                 for (i in 0..3) {
                     changecoordinate[i][1] = coordinate[i][1]-1
                 }
-                coordinateChange(changecoordinate)
+                coordinatesChange(changecoordinate)
             }
         }
     }
 
-    fun coordinateChange(changeCoordinate : Array<Array<Int>>) {
+    fun coordinatesChange(changeCoordinate : Array<Array<Int>>) {
         for (item in coordinate) {
             //맵에서 빼버린다.
             map.map[item[0]][item[1]].color = "none"
@@ -149,7 +165,16 @@ open class Shape(val map :Map) {
         }
         coordinate = changeCoordinate
     }
+    fun coordinateChange(fromChangeCoordinate : Array<Int>, toChangeCoordinate: Array<Int>) {
+        //맵에서 빼버린다.
+        map.map[fromChangeCoordinate[0]][fromChangeCoordinate[1]].color = "none"
+        map.map[fromChangeCoordinate[0]][fromChangeCoordinate[1]].isfilled = false
 
+        map.map[toChangeCoordinate[0]][toChangeCoordinate[1]].color = color
+        map.map[toChangeCoordinate[0]][toChangeCoordinate[1]].isfilled = true
+
+//        coordinate = changeCoordinate
+    }
 }
 
 class Rectangle(map: Map) : Shape(map) {
