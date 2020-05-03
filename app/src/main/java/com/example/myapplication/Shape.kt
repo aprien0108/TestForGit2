@@ -12,6 +12,9 @@ open class Shape(val map :Map) {
         return map.map[coordinate[0][0]][coordinate[0][1]].isfilled or map.map[coordinate[1][0]][coordinate[1][1]].isfilled or map.map[coordinate[2][0]][coordinate[2][1]].isfilled or map.map[coordinate[3][0]][coordinate[3][1]].isfilled
     }
     fun turn(isRight : Boolean) {
+        //방향전환이 가능한지 보려면, 우선 중심을 기준으로 전환했을때의 좌표를 계산해보고, 그 값이 map 좌표안에 위치할 수 있는지 확인
+        //그리고 그 위치에 isfilled값이 false라면 회전.
+        //우측이거나 좌측으로 돌릴 수 있겠습니다.
 
     }
     fun fillBlock(map:Map, row:Int, column:Int, color : String) {
@@ -66,9 +69,11 @@ open class Shape(val map :Map) {
             //3. 옮기거나 옮기지않는다.
             if (c) {
                 //c값이 true일때만 옮긴다.
+                val changecoordinate = arrayOf(arrayOf(0,0),arrayOf(0,0),arrayOf(0,0),arrayOf(0,0))
                 for (i in 0..3) {
-                    coordinate[i][1] = coordinate[i][1]+1
+                    changecoordinate[i][1] = coordinate[i][1]+1
                 }
+                coordinateChange(changecoordinate)
             }
         } else {
             //왼쪽으로 옮기는 경우
@@ -115,12 +120,28 @@ open class Shape(val map :Map) {
             //3. 옮기거나 옮기지않는다.
             if (c) {
                 //c값이 true일때만 옮긴다.
+                val changecoordinate = arrayOf(arrayOf(0,0),arrayOf(0,0),arrayOf(0,0),arrayOf(0,0))
                 for (i in 0..3) {
-                    coordinate[i][1] = coordinate[i][1]-1
+                    changecoordinate[i][1] = coordinate[i][1]-1
                 }
+                coordinateChange(changecoordinate)
             }
         }
     }
+
+    fun coordinateChange(changeCoordinate : Array<Array<Int>>) {
+        for (item in coordinate) {
+            //맵에서 빼버린다.
+            map.map[item[0]][item[1]].color = "none"
+            map.map[item[0]][item[1]].isfilled = false
+        }
+        for (item in changeCoordinate) {
+            map.map[item[0]][item[1]].color = color
+            map.map[item[0]][item[1]].isfilled = true
+        }
+        coordinate = changeCoordinate
+    }
+
 }
 
 class Rectangle(map: Map) : Shape(map) {
