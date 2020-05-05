@@ -17,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 
 class PlayroomActivity : AppCompatActivity(){
 
@@ -26,7 +27,7 @@ class PlayroomActivity : AppCompatActivity(){
         val map = Map(20,10)
         val primg = findViewById<ImageView>(R.id.pr_map)
         val bitmap: Bitmap = Bitmap.createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
-        val canvas: Canvas = Canvas(bitmap)
+        val canvas = Canvas(bitmap)
 
         gameStart(map,primg,bitmap,canvas)
 
@@ -52,9 +53,94 @@ class PlayroomActivity : AppCompatActivity(){
         val job = scope.launch {
             val miniscope = CoroutineScope(Dispatchers.Main)
             val minijob = miniscope.launch {
+                var newturn = false//새로운 턴이 시작되는지 여부를 알리는 밸류. 조종가능한 블럭이 있다면 false값을 가진다.
+                var shape = Shape(map)
+                val r = Random()
+                val n = r.nextInt(5)
+                when(n) {
+                    0 -> {
+                        shape = Rectangle(map)
+                        if (!shape.make()) {
+                            isgameEnd = true
+                        }
+                    }
+                    1 -> {
+                        shape = Stick(map)
+                        if (!shape.make()) {
+                            isgameEnd = true
+                        }
+                    }
+                    2 -> {
+                        shape = Lshape(map)
+                        if (!shape.make()) {
+                            isgameEnd = true
+                        }
+                    }
+                    3 -> {
+                        shape = Zshape(map)
+                        if (!shape.make()) {
+                            isgameEnd = true
+                        }
+                    }
+                    4 -> {
+                        shape = Tshape(map)
+                        if (!shape.make()) {
+                            isgameEnd = true
+                        }
+                    }
+
+                }
 
                 while (!isgameEnd) {
+                    //한 턴마다 진행되어야 하는 것을 나열해보자면,
+                    //1. 현재 플래이어가 조종하고있는 블럭이 없다면 블럭을 생성
+                    if (newturn) {
+                        val random = Random()
+                        val num = random.nextInt(5)
+                        when(num) {
+                            0 -> {
+                                shape = Rectangle(map)
+                                if (!shape.make()) {
+                                    isgameEnd = true
+                                }
+                            }
 
+                            1 -> {
+                                shape = Stick(map)
+                                if (!shape.make()) {
+                                    isgameEnd = true
+                                }
+                            }
+                            2 -> {
+                                shape = Lshape(map)
+                                if (!shape.make()) {
+                                    isgameEnd = true
+                                }
+                            }
+                            3 -> {
+                                shape = Zshape(map)
+                                if (!shape.make()) {
+                                    isgameEnd = true
+                                }
+                            }
+                            4 -> {
+                                shape = Tshape(map)
+                                if (!shape.make()) {
+                                    isgameEnd = true
+                                }
+                            }
+                        }
+                        newturn = false
+                    } else {
+                        //2. 조종중인 블럭이 있다면 한칸 godown
+                        if (!shape.godown()) {
+                            //2.1 조종중인 블럭이 godown을 false를 리턴했다면, 맵에서 부숴질 수 있는지 여부를 확인하여 부수든 말든 하고, 새로운 블럭을 생성
+                            map.destroyBlocksinLow()
+                            newturn = true
+                        }
+                    }
+
+                    //3. 맵을 그려줍니당.
                     drawMap(map,primg,bitmap,canvas)
                     delay(1000)
 
@@ -66,17 +152,12 @@ class PlayroomActivity : AppCompatActivity(){
         }
     }
 
-    fun fillBlock(map:Map, row:Int, column:Int, color : String) {
-        //맵에 특정 블록에 대한 값을 추가함.
-        map.map[row][column].isfilled = true
-        map.map[row][column].color = color
-    }
+//    fun fillBlock(map:Map, row:Int, column:Int, color : String) {
+//        //맵에 특정 블록에 대한 값을 추가함.
+//        map.map[row][column].isfilled = true
+//        map.map[row][column].color = color
+//    }
 
-    fun destroyBlock(map:Map,row:Int, column:Int) {
-        map.map[row][column].isfilled = false
-        map.map[row][column].color = "none"
-
-    }
 
     fun drawMap(map:Map, primg:ImageView, bitmap: Bitmap, canvas:Canvas) {//맵 객체를 불러와 전부 그린다!
         var shapeDrawable: ShapeDrawable
@@ -88,8 +169,8 @@ class PlayroomActivity : AppCompatActivity(){
         //의 순서임. 각각 해당 부분의 원의 반지름을 정하는 것.
         val inset = RectF(6F, 6F, 6F, 6F)//이게 테두리의 두께임.
         val innerr = floatArrayOf(12f,12f,12f,12f,12f,12f,12f,12f)
-        val toast = Toast.makeText(applicationContext, "${map.map.size},${map.map[1].size}", Toast.LENGTH_SHORT)
-        toast.show()
+//        val toast = Toast.makeText(applicationContext, "${map.map.size},${map.map[1].size}", Toast.LENGTH_SHORT)
+//        toast.show()
 
         for(row in 0 until map.map.size) {
 
@@ -105,6 +186,17 @@ class PlayroomActivity : AppCompatActivity(){
                     shapeDrawable = ShapeDrawable(RoundRectShape(outr, inset, innerr))
                     shapeDrawable.setBounds(left, top, right, bottom)
                     shapeDrawable.paint.color = Color.parseColor("#009944")
+                    shapeDrawable.draw(canvas)
+                } else {
+                    //빈공간을 그린다.
+                    val left = 0 + column * 50
+                    val top = 0 + row * 38
+                    val right = 50 + column * 50
+                    val bottom = 38 + row * 38
+
+                    shapeDrawable = ShapeDrawable(RoundRectShape(outr, inset, innerr))
+                    shapeDrawable.setBounds(left, top, right, bottom)
+                    shapeDrawable.paint.color = Color.parseColor("#000000")
                     shapeDrawable.draw(canvas)
                 }
             }
