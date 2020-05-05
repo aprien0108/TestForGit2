@@ -8,8 +8,40 @@ open class Shape(val map :Map) {
     var coordinate = arrayOf(arrayOf(0,0),arrayOf(0,0),arrayOf(0,0),arrayOf(0,0))
     var centerRow:Int = 0
     var centerColumn:Int = 0
-    fun isEnd(map:Map) : Boolean {
+    fun isEnd() : Boolean {
         return map.map[coordinate[0][0]][coordinate[0][1]].isfilled or map.map[coordinate[1][0]][coordinate[1][1]].isfilled or map.map[coordinate[2][0]][coordinate[2][1]].isfilled or map.map[coordinate[3][0]][coordinate[3][1]].isfilled
+    }
+    fun isButtom() : Boolean {
+        //맵에 이 shape 밑에 자신의 좌표가 아닌 블럭이 채워져있다면 바텀임.
+        var isbuttom = false
+        for (i in 0..3) {
+            var isme = false//바로 밑 블럭이 내 자신인지 확인하는 참거짓 값
+            for (j in 0..3) {
+                if (i != j) {
+                    if((coordinate[i][0]+1).equals(coordinate[j][0]) and (coordinate[i][1].equals(coordinate[j][1]))) {
+                        isme = true
+                    }
+                }
+            }
+            if (!(isme) and (map.map[coordinate[i][0]+1][coordinate[i][1]].isfilled)) {
+                isbuttom = true
+            }
+        }
+        return isbuttom
+    }
+
+    fun godown() : Boolean{
+        if (isButtom()) {
+            //밑바닥이라면 내려가지 못하고 결과값으로 false를 반환한다.
+            return false
+        }
+        //밑바닥이 아니라면 한칸 내리고 true를 반환한다.
+        val changecoordiate = arrayOf(arrayOf(0,0),arrayOf(0,0),arrayOf(0,0),arrayOf(0,0))
+        for (i in 0..3) {
+            changecoordiate[i] = arrayOf(coordinate[i][0]+1, coordinate[i][1])
+        }
+        coordinatesChange(changecoordiate)
+        return true
     }
     fun turn(isRight : Boolean) {
         //방향전환이 가능한지 보려면, 우선 중심을 기준으로 전환했을때의 좌표를 계산해보고, 그 값이 map 좌표안에 위치할 수 있는지 확인
@@ -181,7 +213,7 @@ class Rectangle(map: Map) : Shape(map) {
     init {
         coordinate = arrayOf(arrayOf(0,4),arrayOf(0,5),arrayOf(1,4),arrayOf(1,5))
         //놓으려는 위치에 블럭이 있는지여부 확인
-        if (!isEnd(map)) {
+        if (!isEnd()) {
             //블럭 생성
             //랜덤으로 색상 부여 후 좌표 결정. 좌표 결정 시 맵의 해당 좌표에 블럭이 있다면 게임 종료임.
             //색상은 랜덤으로 빨노초파 4색
