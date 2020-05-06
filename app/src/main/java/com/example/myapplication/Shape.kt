@@ -7,8 +7,8 @@ open class Shape(val map :Map) {
     //모든 도형은 색상, 좌표값, 회전중심의 좌표값을 갖는다.
     var color = "none"
     var coordinate = arrayListOf(arrayOf(0,0),arrayOf(0,0),arrayOf(0,0),arrayOf(0,0))
-    var centerRow:Int = 0
-    var centerColumn:Int = 0
+    var centerIndex:Int = -1
+
     fun isEnd() : Boolean {
         for (item in coordinate) {
             if (map.map[item[0]][item[1]].isfilled) return true
@@ -27,10 +27,10 @@ open class Shape(val map :Map) {
                     }
                 }
             }
-            if ((coordinate[i][0]+1) == 20) {
+            if ((coordinate[i][0]+1) == 20) {//맨 밑바닥인 경우
                 return true
             }
-            if (!(isme) and (map.map[coordinate[i][0]+1][coordinate[i][1]].isfilled)) {
+            if (!(isme) and (map.map[coordinate[i][0]+1][coordinate[i][1]].isfilled)) {//내가아닌 블럭이 내 밑에 깔려있는 경우
                 isbuttom = true
             }
         }
@@ -54,8 +54,12 @@ open class Shape(val map :Map) {
         //방향전환이 가능한지 보려면, 우선 중심을 기준으로 전환했을때의 좌표를 계산해보고, 그 값이 map 좌표안에 위치할 수 있는지 확인
         //그리고 그 위치에 isfilled값이 false라면 회전.
         //우측이거나 좌측으로 돌릴 수 있겠습니다.
-        val center = coordinate[coordinate.indexOf(arrayOf(centerRow,centerColumn))]
-        println("기준 : $center")
+        if (centerIndex < 0) {//회전불가능한 도형들(예를들어 rectangle은 초기에 기준좌표값 초기화를 기준좌표값이 -1임. 요런애들은 그냥 false 리턴
+
+            return false
+        }
+        val center = coordinate[centerIndex]
+        println("기준 : ${center[0]} ,${center[1]} ")
         var changecoordinate = arrayListOf<Array<Int>>()
         //오른쪽 방향 회전의 경우, 다른 블럭들은 서로 기준에 대하여 자신의 row와 column을 비교하여 각 경우에 맞게 이동함.
         for (i in 0 until coordinate.size) {
@@ -76,7 +80,19 @@ open class Shape(val map :Map) {
         //또한 changecoordinate안에 row가 20이상 혹은 column이 10이상인경우 회전불가임.
         for (item in changecoordinate) {
             if ((item[0] > 19) or (item[1] > 9)) return false
-            if (map.map[item[0]][item[1]].isfilled) return false
+            for (i in 0 until changecoordinate.size) {
+                var isme = false//바로 밑 블럭이 내 자신인지 확인하는 참거짓 값
+                for (j in 0 until coordinate.size) {
+
+                    if((changecoordinate[i][0]).equals(coordinate[j][0]) and (changecoordinate[i][1].equals(coordinate[j][1]))) {
+                        isme = true
+                    }
+
+                }
+                if (!(isme) and (map.map[changecoordinate[i][0]][changecoordinate[i][1]].isfilled)) {//내가아닌 블럭이 내 밑에 깔려있는 경우
+                    return false
+                }
+            }
         }
         coordinatesChange(changecoordinate)
         return true
@@ -253,6 +269,7 @@ class Rectangle(map: Map) : Shape(map) {
 class Stick(map: Map) : Shape(map) {
     fun make() : Boolean {
         coordinate = arrayListOf(arrayOf(0,4),arrayOf(1,4),arrayOf(2,4),arrayOf(3,4))
+        centerIndex = 2
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성
@@ -282,6 +299,7 @@ class Stick(map: Map) : Shape(map) {
 class Lshape(map: Map) : Shape(map) {
     fun make() : Boolean {
         coordinate = arrayListOf(arrayOf(0,4),arrayOf(1,4),arrayOf(2,4),arrayOf(2,5))
+        centerIndex = 1
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성
@@ -310,6 +328,7 @@ class Lshape(map: Map) : Shape(map) {
 class Zshape(map: Map) : Shape(map) {
     fun make() : Boolean {
         coordinate = arrayListOf(arrayOf(0,4),arrayOf(0,5),arrayOf(1,5),arrayOf(2,5), arrayOf(2,6))
+        centerIndex = 2
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성
@@ -339,6 +358,7 @@ class Zshape(map: Map) : Shape(map) {
 class Tshape(map: Map) : Shape(map) {
     fun make() : Boolean {
         coordinate = arrayListOf(arrayOf(0,4),arrayOf(0,5),arrayOf(0,6),arrayOf(1,5), arrayOf(2,5))
+        centerIndex = 1
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성

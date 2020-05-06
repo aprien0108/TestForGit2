@@ -54,7 +54,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/pr_playlayout">
             <LinearLayout
                 android:layout_width="70dp"
                 android:layout_height="match_parent"

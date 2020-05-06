@@ -44,7 +44,7 @@ class Map(rowsize: Int,columnsize:Int ) {
             for (item in targetarray) {
                 destroyRow(item)
             }
-            gravity(targetarray.size)
+            gravity(targetarray)
             true
         }
     }
@@ -55,28 +55,33 @@ class Map(rowsize: Int,columnsize:Int ) {
             map[row][i].delete()
         }
     }
-    fun gravity(r : Int) {
+    fun gravity(array : ArrayList<Int>) {
         //중력을 실행한다. 주로 destroyrows를 발동한 후, 남은 블럭들의 가장 큰 row값과 19의 차이를 계산하여, 모든 블럭들을 해당값만큼 내리는 것.
         val gmap= ArrayList<ArrayList<Block>>()
         var growmap = ArrayList<Block>()
-        var gblock:Block = Block(false, "none")
-        for (i in 0..19){
+        var gblock: Block
+        var down = 0
+        for (i in 19 downTo 0) {
+            for (j in 0 until array.size) {
+                if ( i-down == array[j]) {
+                    //요줄이 부서진 줄입니다.
+                    down++
+                }
+            }
             growmap = ArrayList<Block>()
             for (j in 0..9) {
-                // 한 행을 만든다. 맨 윗줄부터
-                if ( i < r) {
-                    gblock = Block(false, "none")
+                gblock = if (i < down) {
+                    Block(false,"none")
                 } else {
-                    gblock = map[i-r][j]
+                    map[i-down][j]
                 }
                 growmap.add(gblock)
-                //println(j)
             }
             gmap.add(growmap)
         }
         for (i in 0..19) {
             for (j in 0..9) {
-                map[i][j] = gmap[i][j]
+                map[i][j] = gmap[19-i][j]
             }
         }
     }
