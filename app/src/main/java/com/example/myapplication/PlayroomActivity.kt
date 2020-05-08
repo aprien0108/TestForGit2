@@ -11,6 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
@@ -27,7 +28,7 @@ class PlayroomActivity : AppCompatActivity(){
         setContentView(R.layout.activity_playroom)
         val map = Map(20,10)
         val primg = findViewById<ImageView>(R.id.pr_map)
-        val bitmap: Bitmap = Bitmap.createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
+        val bitmap: Bitmap = Bitmap.createBitmap(450, 1050, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
 
 
@@ -104,9 +105,12 @@ class PlayroomActivity : AppCompatActivity(){
         //맵 객체에는, 한줄이 완성되었거나 동일색상이 여러개 중첩되었는지를 판단하여 부수는 메소드가 존재해야함.
         val scope = CoroutineScope(Dispatchers.Main)
         var isgameEnd = false
-
+        var score = 0
 
         val job = scope.launch {
+            val nextblockimg = findViewById<ImageView>(R.id.pr_nextblock)
+            val bitmap2: Bitmap = Bitmap.createBitmap(100,100,Bitmap.Config.ARGB_8888)
+            val canvas2 = Canvas(bitmap2)
             val miniscope = CoroutineScope(Dispatchers.Main)
             val minijob = miniscope.launch {
                 val playlayout = findViewById<LinearLayout>(R.id.pr_playlayout)
@@ -115,45 +119,13 @@ class PlayroomActivity : AppCompatActivity(){
                 var pDownY = 0
                 var pUpX = 0
                 var pUpY = 0
-
-                newturn = false//새로운 턴이 시작되는지 여부를 알리는 밸류. 조종가능한 블럭이 있다면 false값을 가진다.
+                val scoreview = findViewById<TextView>(R.id.pr_score)
+                scoreview.text = score.toString()
+                newturn = true//새로운 턴이 시작되는지 여부를 알리는 밸류. 조종가능한 블럭이 있다면 false값을 가진다.
                 var shape = Shape(map)
                 val r = Random()
-                val n = r.nextInt(5)
-                when(n) {
-                    0 -> {
-                        shape = Rectangle(map)
-                        if (!shape.make()) {
-                            isgameEnd = true
-                        }
-                    }
-                    1 -> {
-                        shape = Stick(map)
-                        if (!shape.make()) {
-                            isgameEnd = true
-                        }
-                    }
-                    2 -> {
-                        shape = Lshape(map)
-                        if (!shape.make()) {
-                            isgameEnd = true
-                        }
-                    }
-                    3 -> {
-                        shape = Zshape(map)
-                        if (!shape.make()) {
-                            isgameEnd = true
-                        }
-                    }
-                    4 -> {
-                        shape = Tshape(map)
-                        if (!shape.make()) {
-                            isgameEnd = true
-                        }
-                    }
-
-                }
-
+                var nextshape = r.nextInt(5)
+                var nextcolor = r.nextInt(4)
                 playlayout.setOnTouchListener { v, event ->
                     val action = event.action
                     when(action){
@@ -171,21 +143,21 @@ class PlayroomActivity : AppCompatActivity(){
                             //이런 경고문구를 만들었다고 합니다.
                             if (!(isgameEnd or newturn)) {//현재 조작가능한 도형이 있을때만 발동
                                 when {
-                                    pUpY - pDownY <= -200 -> {
+                                    pUpY - pDownY <= -90 -> {
                                         println("위$newturn")
                                         //회전
                                         shape.turn(true)
                                     }
-                                    pUpX - pDownX >= 200 -> {
+                                    pUpX - pDownX >= 90 -> {
                                         println("오른쪽")
                                         //
                                         shape.move(true)
                                     }
-                                    pUpX - pDownX <= -200 -> {
+                                    pUpX - pDownX <= -90 -> {
                                         println("왼쪽")
                                         shape.move(false)
                                     }
-                                    pUpY - pDownY >= 200 -> {
+                                    pUpY - pDownY >= 90 -> {
                                         println("아래")
                                     }
                                 }
@@ -200,54 +172,62 @@ class PlayroomActivity : AppCompatActivity(){
                     //한 턴마다 진행되어야 하는 것을 나열해보자면,
                     //1. 현재 플래이어가 조종하고있는 블럭이 없다면 블럭을 생성
                     if (newturn) {
-                        val random = Random()
-                        val num = random.nextInt(5)
-                        when(num) {
+
+                        when(nextshape) {
                             0 -> {
                                 shape = Rectangle(map)
-                                if (!shape.make()) {
+                                if (!shape.make(intToColor(nextcolor))) {
                                     isgameEnd = true
                                 }
                             }
 
                             1 -> {
                                 shape = Stick(map)
-                                if (!shape.make()) {
+                                if (!shape.make(intToColor(nextcolor))) {
                                     isgameEnd = true
                                 }
                             }
                             2 -> {
                                 shape = Lshape(map)
-                                if (!shape.make()) {
+                                if (!shape.make(intToColor(nextcolor))) {
                                     isgameEnd = true
                                 }
                             }
                             3 -> {
                                 shape = Zshape(map)
-                                if (!shape.make()) {
+                                if (!shape.make(intToColor(nextcolor))) {
                                     isgameEnd = true
                                 }
                             }
                             4 -> {
                                 shape = Tshape(map)
-                                if (!shape.make()) {
+                                if (!shape.make(intToColor(nextcolor))) {
                                     isgameEnd = true
                                 }
                             }
                         }
+                        //다음 미리보기를 위해 변수 새로 갱신
+                        nextshape = r.nextInt(5)
+                        nextcolor = r.nextInt(4)
                         newturn = false
                     } else {
                         //2. 조종중인 블럭이 있다면 한칸 godown
                         if (!shape.godown()) {
                             //2.1 조종중인 블럭이 godown을 false를 리턴했다면, 맵에서 부숴질 수 있는지 여부를 확인하여 부수든 말든 하고, 새로운 블럭을 생성
-                            map.destroyBlocksinLow()
+                            score += map.destroyBlocksinLow()//블럭이 한줄 완성되었다면 부수고 점수 추가.
+                            scoreview.text = score.toString()
                             newturn = true
                             println("바닥$newturn")
                         }
                     }
 
+
+
                     //3. 맵을 그려줍니당.
                     drawMap(map,primg,bitmap,canvas)
+                    //4. 미리보기를 그려줍니다.
+
+
                     delay(200)
 
                 }
@@ -284,10 +264,10 @@ class PlayroomActivity : AppCompatActivity(){
                 if (map.map[row][column].isfilled) {
 //                    val toast = Toast.makeText(applicationContext, "$row,$column", Toast.LENGTH_SHORT)
 //                    toast.show()
-                    val left = 0 + column * 50
-                    val top = 0 + row * 38
-                    val right = 50 + column * 50
-                    val bottom = 38 + row * 38
+                    val left = 0 + column * 42
+                    val top = 0 + row * 45
+                    val right = 42 + column * 42
+                    val bottom = 45 + row * 45
 
                     shapeDrawable = ShapeDrawable(RoundRectShape(outr, inset, innerr))
                     shapeDrawable.setBounds(left, top, right, bottom)
@@ -301,10 +281,10 @@ class PlayroomActivity : AppCompatActivity(){
                     shapeDrawable.draw(canvas)
                 } else {
                     //빈공간을 그린다.
-                    val left = 0f + column * 50f
-                    val top = 0f + row * 38f
-                    val right = 50f + column * 50f
-                    val bottom = 38f + row * 38f
+                    val left = 0f + column * 42f
+                    val top = 0f + row * 45f
+                    val right = 42f + column * 42f
+                    val bottom = 45f + row * 45f
                     val paint = Paint()
                     paint.color = Color.DKGRAY
 //                    shapeDrawable = ShapeDrawable(RoundRectShape(outr, inset, innerr))
@@ -317,6 +297,18 @@ class PlayroomActivity : AppCompatActivity(){
         }
 
         primg.background = BitmapDrawable(resources, bitmap)
+    }
+
+    fun intToColor(i:Int) :String{
+        //받아온 int에 따라 색상 반환
+        return when (i) {
+            0 -> "red"
+            1 -> "green"
+            2 -> "yellow"
+            3 -> "blue"
+            else -> ""
+        }
+
     }
 
 }

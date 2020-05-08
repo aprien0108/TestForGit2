@@ -21,7 +21,7 @@ class Map(rowsize: Int,columnsize:Int ) {
         println("${map.size},${map[0].size}")
     }
 
-    fun destroyBlocksinLow() : Boolean {
+    fun destroyBlocksinLow() : Int {
         //먼저 색깔이 붙어있는 블럭들의 좌표를 모두 뽑아오고, 그 후 꽉찬 줄이 있는지 여부를 확인하여 꽉찬 줄을 전부 가져온다.
         //그 후 그 줄에 해당하는 모든 블럭, 10개이상 동일색 붙어있는 모든 좌표의 블럭들을 소멸시킨다.
         //근데 일단은 그냥 한줄 단위로 완성된것만 부수게 하겠습니다.
@@ -39,13 +39,13 @@ class Map(rowsize: Int,columnsize:Int ) {
         }
 
         return if (targetarray.size < 1) {
-            false
+            0
         } else {
             for (item in targetarray) {
                 destroyRow(item)
             }
             gravity(targetarray)
-            true
+            targetarray.size
         }
     }
 

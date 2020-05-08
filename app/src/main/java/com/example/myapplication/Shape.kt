@@ -109,7 +109,7 @@ open class Shape(val map :Map) {
             //1. 해당 shape 안에 최우측 블럭을 구한다.
             //우선 첫번째 블럭좌표를 최우측으로 설정, 그다음좌표부터 볼 때 우선 row값이 같은지 확인하고,
             //다르면 그게 최우측, 같으면 비교해서 최우측을 수정
-
+            //만들고 나서 든 생각이지만, 그냥 내 블럭우측에 채워진 블럭이 하나라도있으면 false 리턴하는게 개꿀이었을거같은데
             //지금이 이미 최우측인, column값이 9인 경우 바로 리턴해버림.
             for (i in 0 until coordinate.size) {
                 if (coordinate[i][1].equals(9)) return
@@ -132,6 +132,9 @@ open class Shape(val map :Map) {
                         //지금 넣을까 말까 고민하는 coordinate[i]의 column값이 기존최우방보다 어 우측이라면, 바꿔치기 해줍니다.
                         fronts[b] = coordinate[i]
                     }
+                } else {
+                    //안겹치면 그냥 넣어
+                    fronts.add(coordinate[i])
                 }
             }
 
@@ -144,6 +147,7 @@ open class Shape(val map :Map) {
                     c = false
                 }
             }
+            println("c : $c")
             //여기서 c값은 단 하나라도 최우방 한칸오른쪽에 블럭이 있을 경우 false가 됨.
 
             //3. 옮기거나 옮기지않는다.
@@ -183,6 +187,9 @@ open class Shape(val map :Map) {
                         //지금 넣을까 말까 고민하는 coordinate[i]의 column값이 기존최좌방보다 어 좌측이라면, 바꿔치기 해줍니다.
                         fronts[b] = coordinate[i]
                     }
+                } else {
+                    //안겹치면 그냥 넣어
+                    fronts.add(coordinate[i])
                 }
             }
 
@@ -234,22 +241,14 @@ open class Shape(val map :Map) {
 }
 
 class Rectangle(map: Map) : Shape(map) {
-    fun make() : Boolean {
+    fun make(makecolor: String) : Boolean {
         coordinate = arrayListOf(arrayOf(0,4),arrayOf(0,5),arrayOf(1,4),arrayOf(1,5))
 
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성
-            //랜덤으로 색상 부여 후 좌표 결정. 좌표 결정 시 맵의 해당 좌표에 블럭이 있다면 게임 종료임.
-            //색상은 랜덤으로 빨노초파 4색
-            val random = Random()
-            val num = random.nextInt(4)
-            when(num) {
-                0 -> color = "red"
-                1 -> color = "yellow"
-                2 -> color = "green"
-                3 -> color = "blue"
-            }
+
+            color = makecolor
             fillBlock(map,0,4,color)
             fillBlock(map,0,5,color)
             fillBlock(map,1,4,color)
@@ -267,26 +266,16 @@ class Rectangle(map: Map) : Shape(map) {
 }
 
 class Stick(map: Map) : Shape(map) {
-    fun make() : Boolean {
+    fun make(makecolor: String) : Boolean {
         coordinate = arrayListOf(arrayOf(0,4),arrayOf(1,4),arrayOf(2,4),arrayOf(3,4))
         centerIndex = 2
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성
-            //랜덤으로 색상 부여 후 좌표 결정. 좌표 결정 시 맵의 해당 좌표에 블럭이 있다면 게임 종료임.
-            //색상은 랜덤으로 빨노초파 4색
-            val random = Random()
-            val num = random.nextInt(4)
-            when(num) {
-                0 -> color = "red"
-                1 -> color = "yellow"
-                2 -> color = "green"
-                3 -> color = "blue"
+            color = makecolor
+            for (item in coordinate) {
+                fillBlock(map, item[0],item[1],color)
             }
-            fillBlock(map,0,4,color)
-            fillBlock(map,1,4,color)
-            fillBlock(map,2,4,color)
-            fillBlock(map,3,4,color)
             return true
         } else {
             //게임 끝!
@@ -297,26 +286,16 @@ class Stick(map: Map) : Shape(map) {
 }
 
 class Lshape(map: Map) : Shape(map) {
-    fun make() : Boolean {
+    fun make(makecolor: String) : Boolean {
         coordinate = arrayListOf(arrayOf(0,4),arrayOf(1,4),arrayOf(2,4),arrayOf(2,5))
         centerIndex = 1
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성
-            //랜덤으로 색상 부여 후 좌표 결정. 좌표 결정 시 맵의 해당 좌표에 블럭이 있다면 게임 종료임.
-            //색상은 랜덤으로 빨노초파 4색
-            val random = Random()
-            val num = random.nextInt(4)
-            when(num) {
-                0 -> color = "red"
-                1 -> color = "yellow"
-                2 -> color = "green"
-                3 -> color = "blue"
+            color = makecolor
+            for (item in coordinate) {
+                fillBlock(map, item[0],item[1],color)
             }
-            fillBlock(map,0,4,color)
-            fillBlock(map,1,4,color)
-            fillBlock(map,2,4,color)
-            fillBlock(map,2,5,color)
             return true
         } else {
             //게임 끝!
@@ -326,27 +305,16 @@ class Lshape(map: Map) : Shape(map) {
 }
 
 class Zshape(map: Map) : Shape(map) {
-    fun make() : Boolean {
-        coordinate = arrayListOf(arrayOf(0,4),arrayOf(0,5),arrayOf(1,5),arrayOf(2,5), arrayOf(2,6))
-        centerIndex = 2
+    fun make(makecolor: String) : Boolean {
+        coordinate = arrayListOf(arrayOf(0,4),arrayOf(0,5),arrayOf(1,5),arrayOf(1,6))
+        centerIndex = 1
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성
-            //랜덤으로 색상 부여 후 좌표 결정. 좌표 결정 시 맵의 해당 좌표에 블럭이 있다면 게임 종료임.
-            //색상은 랜덤으로 빨노초파 4색
-            val random = Random()
-            val num = random.nextInt(4)
-            when(num) {
-                0 -> color = "red"
-                1 -> color = "yellow"
-                2 -> color = "green"
-                3 -> color = "blue"
+            color = makecolor
+            for (item in coordinate) {
+                fillBlock(map, item[0],item[1],color)
             }
-            fillBlock(map,0,4,color)
-            fillBlock(map,0,5,color)
-            fillBlock(map,1,5,color)
-            fillBlock(map,2,5,color)
-            fillBlock(map,2,6,color)
             return true
         } else {
             //게임 끝!
@@ -356,27 +324,16 @@ class Zshape(map: Map) : Shape(map) {
 }
 
 class Tshape(map: Map) : Shape(map) {
-    fun make() : Boolean {
-        coordinate = arrayListOf(arrayOf(0,4),arrayOf(0,5),arrayOf(0,6),arrayOf(1,5), arrayOf(2,5))
+    fun make(makecolor: String) : Boolean {
+        coordinate = arrayListOf(arrayOf(0,4),arrayOf(0,5),arrayOf(0,6),arrayOf(1,5))
         centerIndex = 1
         //놓으려는 위치에 블럭이 있는지여부 확인
         if (!isEnd()) {
             //블럭 생성
-            //랜덤으로 색상 부여 후 좌표 결정. 좌표 결정 시 맵의 해당 좌표에 블럭이 있다면 게임 종료임.
-            //색상은 랜덤으로 빨노초파 4색
-            val random = Random()
-            val num = random.nextInt(4)
-            when(num) {
-                0 -> color = "red"
-                1 -> color = "yellow"
-                2 -> color = "green"
-                3 -> color = "blue"
+            color = makecolor
+            for (item in coordinate) {
+                fillBlock(map, item[0],item[1],color)
             }
-            fillBlock(map,0,4,color)
-            fillBlock(map,0,5,color)
-            fillBlock(map,0,6,color)
-            fillBlock(map,1,5,color)
-            fillBlock(map,2,5,color)
             return true
         } else {
             //게임 끝!
